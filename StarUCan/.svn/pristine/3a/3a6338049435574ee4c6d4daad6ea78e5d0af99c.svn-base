@@ -1,0 +1,80 @@
+{
+    "status": "OK",
+    "top_count": "4",
+    "recommend_count": "4",
+    "seckill_count": "3",
+    "seckill_date": "2015-01-21 11:45:00",
+    "top": [
+            {
+            "pic_url": "http://pic23.nipic.com/20120911/5219173_233509072371_2.jpg",
+            "pic_type": 1,
+            "pic_content": "http://www.3g.cn/"
+            },
+            {
+            "pic_url": "http://t2.dpfile.com/pc/mc/368657a9f29920a978615a3a1825681e(640x1024)/thumb.jpg",
+            "pic_type": 2,
+            "pic_content": "10000"
+            },
+            {
+            "pic_url": "http://t1.dpfile.com/pc/mc/adc5b35d358ed927f0b09cd1bfaf18f8(640x1024)/thumb.jpg",
+            "pic_type": 3,
+            "pic_content": "火锅"
+            },
+            {
+            "pic_url": "http://t2.dpfile.com/pc/mc/2a711fe08e083dce42309139b655d5ae(640x1024)/thumb.jpg",
+            "pic_type": 4,
+            "pic_content": "2-2308843",
+            "business_id": "18213510"
+            }
+            ],
+    "recommend": [
+                  {
+                  "pic_url": "http://t3.dpfile.com/pc/mc/621e82a9e2f873e71cf99e2d103c12ad(640x1024)/thumb.jpg",
+                  "pic_type": 1,
+                  "pic_content": "http://www.3g.cn/"
+                  },
+                  {
+                  "pic_url": "http://t1.dpfile.com/pc/mc/adc5b35d358ed927f0b09cd1bfaf18f8(640x1024)/thumb.jpg",
+                  "pic_type": 2,
+                  "pic_content": "10000"
+                  },
+                  {
+                  "pic_url": "http://t2.dpfile.com/pc/mc/368657a9f29920a978615a3a1825681e(640x1024)/thumb.jpg",
+                  "pic_type": 3,
+                  "pic_content": "日韩料理"
+                  },
+                  {
+                  "pic_url": "http://pic23.nipic.com/20120911/5219173_233509072371_2.jpg",
+                 "pic_type": 4,
+                  "pic_content": "2-8780175",
+                  "business_id": "2860786"
+                  }
+                  ],
+    "seckill": [
+                {
+                "pic_url": "http://t1.dpfile.com/pc/mc/adc5b35d358ed927f0b09cd1bfaf18f8(640x1024)/thumb.jpg",
+                "pic_type": 2,
+                "pic_content": "10000",
+                "old_price": 190,
+                "discount_price": 90,
+                "seckill_name": "麻辣诱惑"
+                },
+                {
+                "pic_url": "http://t2.dpfile.com/pc/mc/368657a9f29920a978615a3a1825681e(640x1024)/thumb.jpg",
+                "pic_type": 3,
+                "pic_content": "烧烤烤肉",
+                "old_price": 300,
+                "discount_price": 180,
+                "seckill_name": "赛百味"
+                },
+                {
+                "pic_url": "http://pic23.nipic.com/20120911/5219173_233509072371_2.jpg",
+                "pic_type": 4,
+                "pic_content": "2-8780175",
+                "business_id": "2860786",
+                "old_price": 100,
+                "discount_price": 50,
+                "seckill_name": "大鸭梨"
+                }
+                ]
+}

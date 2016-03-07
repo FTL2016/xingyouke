@@ -1,0 +1,114 @@
+//
+//  MainViewController.m
+//  星优客
+//
+//  Created by vgool on 15/12/30.
+//  Copyright © 2015年 vgool. All rights reserved.
+//
+
+#import "MainViewController.h"
+#import "HomeViewController.h"
+#import "NewsViewController.h"
+#import "MineViewController.h"
+#import "WXNavigationController.h"
+#import "ShowViewController.h"
+#import "TalkViewController.h"
+@interface MainViewController ()
+
+@end
+
+@implementation MainViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    //系统的
+    [self setupSystermTabbar];
+
+    
+}
+- (void)setupSystermTabbar
+{
+    self.tabBar.translucent = NO;
+    [self.tabBar setBackgroundImage:[[UIImage imageNamed:@"tabbar_bg.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:10]];
+    //去掉阴影线
+    self.tabBar.shadowImage = [[UIImage alloc] init];
+    //首页
+    HomeViewController *_hvc = [[HomeViewController alloc] init];
+    WXNavigationController *nav1 = [[WXNavigationController alloc] initWithRootViewController:_hvc];
+    _hvc.tabBarItem.title = @"秀场";
+    _hvc.tabBarItem.image = [UIImage imageNamed:@"tb_index_gray.png"];
+    nav1.navigationBar.translucent = NO;
+    
+    //话题
+    TalkViewController *cvc = [[TalkViewController alloc] init];
+    WXNavigationController *nav2 = [[WXNavigationController alloc] initWithRootViewController:cvc];
+    cvc.tabBarItem.title = @"话题";
+    cvc.tabBarItem.image = [UIImage imageNamed:@"tb_index_topic.png"];
+    nav2.navigationBar.translucent = NO;
+    
+    
+    
+    //show
+    ShowViewController *svc = [[ShowViewController alloc] init];
+    WXNavigationController *nav3 = [[WXNavigationController alloc] initWithRootViewController:svc];
+    nav3.navigationBar.translucent = NO;
+    
+    
+    //消息
+    NewsViewController *mvc = [[NewsViewController alloc] init];
+    WXNavigationController *nav4 = [[WXNavigationController alloc] initWithRootViewController:mvc];
+    mvc.tabBarItem.image = [UIImage imageNamed:@"tb_index_gou.png"];
+    mvc.tabBarItem.title = @"消息";
+    nav4.navigationBar.translucent = NO;
+    
+    
+    //我的
+    MineViewController *pvc = [[MineViewController alloc] init];
+    WXNavigationController *nav5 = [[WXNavigationController alloc] initWithRootViewController:pvc];
+    pvc.tabBarItem.image = [UIImage imageNamed:@"tb_index_mine.png"];
+    pvc.tabBarItem.title = @"我的";
+    nav5.navigationBar.translucent = NO;
+    
+    
+    self.viewControllers = @[nav1,nav2,nav3,nav4,nav5];
+    self.tabBar.tintColor = [UIColor colorWithRed:255.0/255 green:91.0/255 blue:59.0/255 alpha:1];
+    
+    CGFloat btn_w = self.view.frame.size.width/5-20;
+    UIButton *sendBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    sendBtn.frame = CGRectMake(YTHScreenWidth/2 - btn_w/2, -5, btn_w, 55);
+    [sendBtn setBackgroundImage:[UIImage imageNamed:@"pic"] forState:UIControlStateNormal];
+    sendBtn.adjustsImageWhenHighlighted = NO;
+    [sendBtn addTarget:self action:@selector(sendBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.tabBar addSubview:sendBtn];
+  
+}
+//中间凸起按钮
+- (void)sendBtnClick
+{
+    NSLog(@"dianji");
+//    ShowViewController *svc = [[ShowViewController alloc] init];
+//    UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:svc];
+//    [self presentViewController:nav3 animated:NO completion:nil];
+    self.selectedIndex = 2;
+  
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

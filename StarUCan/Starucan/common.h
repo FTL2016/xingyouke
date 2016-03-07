@@ -1,0 +1,82 @@
+//
+//  common.h
+//  星优客
+//
+//  Created by vgool on 15/12/30.
+//  Copyright © 2015年 vgool. All rights reserved.
+//
+
+#ifndef common_h
+#define common_h
+// 调试状态, 打开Log功能
+#ifdef DEBUG
+#define YTHLog(...) NSLog(__VA_ARGS__)
+#else // 发布状态, 关闭Log功能
+#define YTHLog(...)
+#endif
+
+#if TARGET_IPHONE_SIMULATOR
+#define SIMULATOR 1
+#elif TARGET_OS_IPHONE
+#define SIMULATOR 0
+#endif
+#define YTHBaseVCBackgroudColor [UIColor colorWithRed:235/255.0 green:235/255.0 blue:235/255.0 alpha:1.0]
+// 是否是iOS8或以上
+#define iOS8 ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
+
+// 是否是iOS7或以上
+#define iOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+
+// 导航栏字体
+#define YTHTitleFont [UIFont boldSystemFontOfSize:20]
+
+// 是否是4英寸
+#define fourInch ([UIScreen mainScreen].bounds.size.height == 568.0)
+
+// 是否是3.5英寸
+#define threeInch ([UIScreen mainScreen].bounds.size.height == 480.0)
+
+// 是否是4.7英寸
+#define bigFourInche ([UIScreen mainScreen].bounds.size.height == 667.0)
+
+// 是否是5.5英寸
+#define sixPlus ([UIScreen mainScreen].bounds.size.height == 736.0)
+
+#define YTHColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+// 是否登录
+#define YTHIsLogin [[SUCArchive shareArchiveManager] online]
+
+#define WS(weakSelf) __weak typeof(self) weakSelf = self;
+
+#define LoginStatus @"loginStatus"
+
+// O2O的主题色
+#define YTHThemeColor YTHColor(255, 73, 120)
+
+// 屏幕宽度
+#define YTHScreenWidth [UIScreen mainScreen].bounds.size.width
+
+// 屏幕高度
+#define YTHScreenHeight [UIScreen mainScreen].bounds.size.height
+
+// 随机色
+#define GXColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+#define YTHAdaptation(parameter) (parameter/375.0f)*[[UIScreen mainScreen]bounds].size.width
+
+//非空判断 宏
+#define IsNilOrNull(_ref) (((_ref) == nil) || ([(_ref) isEqual:[NSNull null]]))
+
+#define Url @"http://test.platform.vgool.cn/starucan/";
+
+
+
+
+
+
+
+//#define Url @"http://api.starucan.com/"
+
+//#define Url @"http://192.168.1.175:8080/platform-api/";
+
+#endif /* common_h */

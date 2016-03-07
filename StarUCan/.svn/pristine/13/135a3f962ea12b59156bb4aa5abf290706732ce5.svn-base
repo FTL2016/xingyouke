@@ -1,0 +1,101 @@
+//
+//  ShowTableViewCell.m
+//  Starucan
+//
+//  Created by vgool on 16/1/22.
+//  Copyright © 2016年 vgool. All rights reserved.
+//
+
+#import "ShowTableViewCell.h"
+#import "ShowDetailModel.h"
+#import "UIImageView+WebCache.h"
+@implementation ShowTableViewCell
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    if (!(self=[super initWithStyle:style reuseIdentifier:reuseIdentifier]))
+        return nil;
+    
+    self.faceImg = [[UIImageView alloc]initWithFrame:CGRectMake(10, 15, 76/2, 76/2)];
+     [self.contentView addSubview:self.faceImg];
+    
+     _nickNameLab = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.faceImg.frame)+10, 10, 150, 30)];
+    _nickNameLab.font = [UIFont systemFontOfSize:12];
+    [self.contentView addSubview:self.nickNameLab];
+    
+    _sexImg = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_nickNameLab.frame), 15, 15, 15)];
+    _sexImg.image = [UIImage imageNamed:@"sex_female"];
+   [self.contentView addSubview:_sexImg];
+    _univerLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.faceImg.frame)+10, CGRectGetMaxY(_nickNameLab.frame), YTHScreenWidth-100, 10)];
+    _univerLabel.textColor = [UIColor grayColor];
+    _univerLabel.font = [UIFont systemFontOfSize:10];
+    [self.contentView addSubview:_univerLabel];
+    
+    _commentTimeLab = [[UILabel alloc]initWithFrame:CGRectMake(YTHScreenWidth-150, 21, 100, 30)];
+    _commentTimeLab.textColor = [UIColor grayColor];
+    _commentTimeLab.font = [UIFont systemFontOfSize:10];
+    [self.contentView addSubview:_commentTimeLab];
+    _commentContentLab = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.faceImg.frame)+10, CGRectGetMaxY(_univerLabel.frame)+10, YTHScreenWidth-30, 30)];
+    
+    _commentContentLab.textColor = [UIColor blackColor];
+    _commentContentLab.font = [UIFont systemFontOfSize:14];
+
+   [self.contentView addSubview:_commentContentLab];
+    
+    
+    return self;
+
+}
+- (void)awakeFromNib {
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+//-(void)setShowDetailModel:(ShowDetailModel *)showDetailModel
+//{
+//    if (_showDetailModel!=showDetailModel) {
+//        _showDetailModel=showDetailModel;
+//        [self setNeedsLayout];
+//    }
+//    
+//}
+-(void)setShowCommentModel:(ShowCommentModel *)showCommentModel
+{
+    if (_showCommentModel!=showCommentModel) {
+        _showCommentModel=showCommentModel;
+        [self setNeedsLayout];
+    }
+}
+-(void)layoutSubviews{
+    
+     [super layoutSubviews];
+    
+   NSString *uslString = [self.showCommentModel.createUser objectForKey:@"avatar"];
+    [_faceImg sd_setImageWithURL:[NSURL URLWithString:uslString] placeholderImage:nil];
+    _nickNameLab.text = [self.showCommentModel.createUser objectForKey:@"name"];
+    NSString *sex = [self.showCommentModel.createUser objectForKey:@"sex"];
+    if ([sex isEqualToString:@"0"]) {
+        self.sexImg.image = [UIImage imageNamed:@"sex_male"];
+    }else if ([sex isEqualToString:@"1"])
+    {
+         self.sexImg.image = [UIImage imageNamed:@"sex_female"];
+    }
+    if (!IsNilOrNull([self.showCommentModel.createUser objectForKey:@"avatar"])&&!uslString.length==0) {
+         [_faceImg sd_setImageWithURL:[NSURL URLWithString:uslString] placeholderImage:nil];
+        
+    }else{
+        if ([sex isEqualToString:@"0"]) {
+            _faceImg.image =  [UIImage imageNamed:@"female"];
+        }else if ([sex isEqualToString:@"1"]){
+           _faceImg.image =  [UIImage imageNamed:@"male"];
+        }
+    }
+
+    _univerLabel.text = [self.showCommentModel.createUser objectForKey:@"universityName"];
+    _commentContentLab.text = self.showCommentModel.content;
+    
+    _commentTimeLab.text = self.showCommentModel.createTime;
+}
+@end

@@ -1,0 +1,15 @@
+//
+//  PickUiview.h
+//  Starucan
+//
+//  Created by vgool on 16/2/14.
+//  Copyright © 2016年 vgool. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface PickUiview : UIView<UIPickerViewDelegate, UIPickerViewDataSource>
+@property (strong, nonatomic)UIPickerView *customPicker;
+
+- (void)showInView:(UIView *)view;
+@end

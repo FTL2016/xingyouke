@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "762e35de-e8c2-4406-81ed-9b30789e92be++5961",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "762e35de-e8c2-4406-81ed-9b30789e92be++5961" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "762e35de-e8c2-4406-81ed-9b30789e92be++5961" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C34B7406-19EB-4BF9-9FEF-F74271582E6B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "762e35de-e8c2-4406-81ed-9b30789e92be++5961" : "StarUCan\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Starucan",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Starucan.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/211.157.146.145",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "762e35de-e8c2-4406-81ed-9b30789e92be++5961"
+    }
+  ]
+}

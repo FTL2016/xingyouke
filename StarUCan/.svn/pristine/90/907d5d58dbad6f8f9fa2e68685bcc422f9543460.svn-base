@@ -1,0 +1,21 @@
+//
+//  ShowTableViewCell.h
+//  Starucan
+//
+//  Created by vgool on 16/1/22.
+//  Copyright © 2016年 vgool. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "ShowCommentModel.h"
+@interface ShowTableViewCell : UITableViewCell
+@property(nonatomic,strong)UIImageView *faceImg;
+@property(nonatomic,strong) UILabel *nickNameLab;
+@property(nonatomic,strong)UIImageView *sexImg;
+@property(nonatomic,strong)UILabel *univerLabel;
+@property(nonatomic,strong)UILabel *commentTimeLab;
+@property(nonatomic,strong) UILabel *commentContentLab;
+@property (nonatomic, strong)ShowCommentModel *showCommentModel;
+
+
+@end

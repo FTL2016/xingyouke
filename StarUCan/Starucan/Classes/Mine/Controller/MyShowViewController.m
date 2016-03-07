@@ -1,0 +1,143 @@
+//
+//  MyShowViewController.m
+//  Starucan
+//
+//  Created by vgool on 16/1/27.
+//  Copyright © 2016年 vgool. All rights reserved.
+//
+
+#import "MyShowViewController.h"
+#import "ShowDetailModel.h"
+#import "MyShowLayoutFrame.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "AppDelegate.h"
+#import "NSData+AES256.h"
+#import "MyShowTableViewCell.h"
+@interface MyShowViewController ()<UITableViewDataSource,UITableViewDelegate>
+{
+    AppDelegate *myDelegate;
+}
+@property(nonatomic,strong)UITableView *tableview;
+@property(nonatomic,strong)NSMutableArray *data;
+
+@end
+
+@implementation MyShowViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    if (!myDelegate) {
+        myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    }
+    self.data = [[NSMutableArray alloc]init];
+    self.title=@"我的秀";
+    [self _initTableView];
+    [self requestAtten];
+}
+#pragma mark-uitableView
+-(void)_initTableView
+{
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, YTHScreenWidth, YTHScreenHeight-64)style:UITableViewStyleGrouped];
+    tableView.dataSource = self;
+    tableView.delegate = self;
+    self.tableview = tableView;
+    
+    [self.view addSubview:tableView];
+    
+}
+#pragma mark - 关注请求
+-(void)requestAtten
+{
+//    NSString *url1 = @"v1/show/attentions";
+//    NSString *text = [NSData AES256EncryptWithPlainText:url1 passtext:myDelegate.accessToken];
+//    NSLog(@"登录密码=%@",myDelegate.accessToken);
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    [manager.requestSerializer setAuthorizationHeaderFieldWithToken:text];
+//    [manager.requestSerializer setValue:myDelegate.account forHTTPHeaderField:@"account"];
+//    
+    NSString *uS = Url;
+    NSString *urlStr = [NSString stringWithFormat:@"%@v1/show/user_created/%@",uS,[myDelegate.userInfo objectForKey:@"uuid"]];
+    NSLog(@"拼接之后%@",urlStr);
+    [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+       
+        NSLog(@"我的秀 %ld",(long)[operation.response statusCode]);
+        if ([operation.response statusCode]/100==2) {
+            NSLog(@"我的秀%@",responseObject);
+            NSArray *showArray = [responseObject objectForKey:@"shows"];
+            for (NSDictionary *dic in showArray) {
+                ShowDetailModel *showModel = [[ShowDetailModel alloc]initContentWithDic:dic];
+                MyShowLayoutFrame *myFrame = [[MyShowLayoutFrame alloc]init];
+                myFrame.showModel = showModel;
+                [self.data addObject:myFrame];
+            }
+            
+        }
+        
+        
+        [self.tableview reloadData];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"我的秀error code %ld",(long)[operation.response statusCode]);
+        
+    }];
+    
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.data.count;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"cellForRowAtIndexPath");
+    
+    static NSString *identify = @"kIdentifier";
+    MyShowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    if (cell == nil) {
+        cell = [[MyShowTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
+    }
+    cell.myLayoutFrame = self.data[indexPath.section];
+    
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"heightForRowAtIndexPath");
+    MyShowLayoutFrame *weiboF = self.data[indexPath.section];
+    return weiboF.cellHeight;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if(section == 0){
+        return 0.1f;
+    }
+    return 10.0f;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.1f;
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

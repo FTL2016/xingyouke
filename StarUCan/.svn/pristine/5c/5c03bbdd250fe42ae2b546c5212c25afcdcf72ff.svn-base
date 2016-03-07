@@ -1,0 +1,272 @@
+//
+//  AttentionTableViewCell.m
+//  Starucan
+//
+//  Created by vgool on 16/1/25.
+//  Copyright © 2016年 vgool. All rights reserved.
+//
+
+#import "AttentionTableViewCell.h"
+#import "UIImageView+WebCache.h"
+@implementation AttentionTableViewCell
+
+- (void)awakeFromNib {
+    // Initialization code
+}
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    if (!(self=[super initWithStyle:style reuseIdentifier:reuseIdentifier]))
+        return nil;
+    _kTitleArrays = [[NSMutableArray alloc]init];
+    UIImageView *headImgV = [[UIImageView alloc]initWithFrame:CGRectMake(10, 15, 40, 40)];
+    [headImgV.layer setMasksToBounds:YES];
+    [headImgV.layer setCornerRadius:20];
+    headImgV.layer.borderColor = [UIColor grayColor].CGColor;
+    headImgV.layer.borderWidth = 1;
+    self.headImgV = headImgV;
+    [self.contentView addSubview:self.headImgV];
+    
+    //名字
+    UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(60, 10, 100, 20)];
+    nameLabel.text = @"顾梦慈";
+    nameLabel.font = [UIFont systemFontOfSize:14];
+    nameLabel.textColor = [UIColor blackColor];
+    nameLabel.backgroundColor = [UIColor yellowColor];
+    self.nameLabel = nameLabel;
+     [self.contentView addSubview:self.nameLabel];
+    //性别
+    UIImageView *sexImV = [[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(nameLabel.frame), 15, 15, 15)];
+    sexImV.image = [UIImage imageNamed:@"sex_female"];
+    self.sexImV = sexImV;
+    [self.contentView addSubview:sexImV];
+    //学校
+    UILabel *uniserLabel = [[UILabel alloc]initWithFrame:CGRectMake(60, 40, 200, 30)];
+    uniserLabel.text = @"dsa";
+    uniserLabel.font = [UIFont systemFontOfSize:12];
+    uniserLabel.textColor = [UIColor grayColor];
+    self.uniserLabel=uniserLabel;
+    [self.contentView addSubview:self.uniserLabel];
+    //大图
+    UIImageView *bigImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(uniserLabel.frame)+10, YTHScreenWidth-20, 175)];
+   
+    self.bigImage = bigImage;
+    [self.contentView addSubview:self.bigImage];
+    
+    UIView *viewBgDesc = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.bigImage.frame)+10, YTHScreenWidth, 25)];
+    
+    // viewBgDesc.backgroundColor = [UIColor whiteColor];
+    self.viewBgDesc = viewBgDesc;
+    [self.contentView addSubview:viewBgDesc];
+    UILabel *labelDesc = [[UILabel alloc]initWithFrame:CGRectMake(16, 5, YTHScreenWidth-32, 25)];
+    
+    labelDesc.textColor = [UIColor blackColor];
+    labelDesc.numberOfLines = 0;
+    labelDesc.font = [UIFont systemFontOfSize:14];
+    [viewBgDesc addSubview:labelDesc];
+    self.labelDesc = labelDesc;
+    
+//    //标签
+//    _kTitleView = [[UIScrollView alloc]init];
+//   
+//        _kTitleView.frame =CGRectMake(10, CGRectGetMaxY(self.bigImage.frame)+40, YTHScreenWidth-20, 44);
+//       
+//   
+//   // _kTitleView.backgroundColor = [UIColor redColor];
+//    //_kTitleView.backgroundColor = [UIColor yellowColor];
+//    _kMarkRect = CGRectMake(0, 0, 0, 0);
+//    [self.contentView addSubview:_kTitleView];
+//    for (NSString *title in _kTitleArrays) {
+//        [self _addTitleBtn:title andAdd:NO];
+//    }
+
+    //评论
+    UILabel *commentLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(self.bigImage.frame)+40+44, 100, 50)];
+   // int commentInt=[self.jason objectForKey:@"commitCount"];
+//    commentLabel.text = [NSString stringWithFormat:@"评论%d",commentInt];
+    commentLabel.textColor = [UIColor grayColor];
+    self.commentLabel=commentLabel;
+    [self.contentView addSubview:commentLabel];
+    
+    
+    
+    UILabel *praiseLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, CGRectGetMaxY(self.bigImage.frame)+40+44, 100, 50)];
+//    int praiseInt=[self.jason objectForKey:@"praiseCount"];
+//    praiseLabel.text =[NSString stringWithFormat:@"赞%d",praiseInt];
+    praiseLabel.textColor = [UIColor grayColor];
+    self.praiseLabel=praiseLabel;
+        [self.contentView addSubview:praiseLabel];
+    
+    UIView *viewbg = [[UIView alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(self.praiseLabel.frame), YTHScreenWidth-20, 100)];
+    viewbg.backgroundColor = YTHColor(250, 250, 250);
+    [self.contentView addSubview:viewbg];
+    //赞列表
+    UIImageView *praiseImv = [[UIImageView alloc]initWithFrame:CGRectMake(10,5, 15, 15)];
+    praiseImv.image = [UIImage imageNamed:@"icon_zan_red"];
+    [viewbg addSubview:praiseImv];
+    
+    //评论1
+    UILabel *comlabel =[[UILabel alloc]initWithFrame:CGRectMake(10, 35, YTHScreenWidth-30, 30)];
+    comlabel.textColor = [UIColor blackColor];
+    comlabel.numberOfLines = 0;
+    comlabel.font = [UIFont systemFontOfSize:12];
+    comlabel.text = @"评论1";
+    [viewbg addSubview:comlabel];
+    
+    //评论2
+    UILabel *commentText =[[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(comlabel.frame)+3, YTHScreenWidth-30, 30)];
+    commentText.textColor = [UIColor blackColor];
+    commentText.numberOfLines = 0;
+    commentText.font = [UIFont systemFontOfSize:12];
+    commentText.text = @"评论2";
+    [viewbg addSubview:commentText];
+    
+    
+    
+    
+    
+    
+     return self;
+}
+-(void)setShowModel:(ShowDetailModel *)showModel
+{
+    if (_showModel!=showModel) {
+        _showModel=showModel;
+        [self setNeedsLayout];
+    }
+}
+-(void)layoutSubviews{
+     [super layoutSubviews];
+    [self.headImgV sd_setImageWithURL:[NSURL URLWithString:[self.showModel.user objectForKey:@"avatar"]]];
+    
+    
+    //性别
+    NSString *sexurl = [self.showModel.user objectForKey:@"sex"];
+    if ([sexurl isEqualToString:@"0"]) {
+        self.sexImV.image = [UIImage imageNamed:@"sex_male"];
+    }else if ([sexurl isEqualToString:@"1"])
+    {
+          self.sexImV.image = [UIImage imageNamed:@"sex_female"];
+    }
+    
+    
+    //头像
+  NSString *urlString = [self.showModel.user objectForKey:@"avatar"];
+  
+    
+    if (!IsNilOrNull([self.showModel.user objectForKey:@"avatar"])&&!urlString.length==0) {
+        //                    [self.headImgV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@",self.urlString]] placeholderImage:nil];
+        [self.headImgV sd_setImageWithURL:[NSURL URLWithString:urlString]];
+        
+    }else{
+        if ([sexurl isEqualToString:@"0"]) {
+            self.headImgV.image =  [UIImage imageNamed:@"female"];
+        }else if ([sexurl isEqualToString:@"1"]){
+            self.headImgV.image =  [UIImage imageNamed:@"male"];
+        }
+    }
+
+    
+    
+    
+    
+    self.nameLabel.text = [self.showModel.user objectForKey:@"name"];
+    self.uniserLabel.text = [self.showModel.user objectForKey:@"universityName"];
+    //图片
+    NSArray *photosUrlArr = [self.showModel.photoUrl componentsSeparatedByString:@","];
+    self.photoNameList = [[NSMutableArray alloc]init];
+    
+    for (NSString *photoUrl in photosUrlArr) {
+        [self.photoNameList addObject:photoUrl];
+    }
+    [self.bigImage sd_setImageWithURL:[NSURL URLWithString:[self.photoNameList objectAtIndex:0]]];
+   
+//内容
+    self.labelDesc.text = self.showModel.content;
+    [_kTitleArrays removeAllObjects];
+    //标签
+    NSArray *labellid=self.showModel.labels;
+    for (NSDictionary *labelDict in labellid) {
+        NSString *labelArry = [labelDict objectForKey:@"name"];
+        [_kTitleArrays addObject:labelArry];
+    }
+    [self _initLabel];
+    
+    self.praiseLabel.text = [NSString stringWithFormat:@"赞%@",self.showModel.praiseCount];
+    self.commentLabel.text = [NSString stringWithFormat:@"评论%@",self.showModel.commitCount];
+    
+    
+}
+-(void)_initLabel
+{
+    _kTitleView = [[UIScrollView alloc]init];
+    
+    _kTitleView.frame =CGRectMake(10, CGRectGetMaxY(self.bigImage.frame)+40, YTHScreenWidth-20, 44);
+    
+    
+    //_kTitleView.backgroundColor = [UIColor redColor];
+    //_kTitleView.backgroundColor = [UIColor yellowColor];
+    _kMarkRect = CGRectMake(0, 0, 0, 0);
+    [self.contentView addSubview:_kTitleView];
+    for (NSString *title in _kTitleArrays) {
+        [self _addTitleBtn:title andAdd:NO];
+    }
+    
+
+}
+-(void)_addTitleBtn:(NSString *)title andAdd:(BOOL)add{
+    if (!_kTitleView) {
+        _kTitleView = [[UIScrollView alloc]initWithFrame:CGRectMake(30, 0, YTHScreenWidth-54, 44)];
+        _kTitleView.backgroundColor = [UIColor yellowColor];
+        //_kTitleView.backgroundColor = YTHBaseVCBackgroudColor;
+        [self.contentView addSubview:_kTitleView];
+    }
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:12]};
+    CGFloat length = [title boundingRectWithSize:CGSizeMake(320, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size.width;
+    CGFloat xxxx = _kMarkRect.origin.x + _kMarkRect.size.width + length + 30;
+    if (_kMarkRect.origin.y == 0) {
+        _kMarkRect.origin.y = 10;
+    }
+    if (xxxx>_kTitleView.frame.size.width-10) {
+        _kMarkRect.origin.y += 37;
+        _kMarkRect.origin.x = 0;
+        _kMarkRect.size.width = 0;
+    }
+    UIView *kMarkView = [[UIView alloc]initWithFrame:CGRectMake(_kMarkRect.origin.x + _kMarkRect.size.width + 10, _kMarkRect.origin.y, length+20, 27)];
+    [_kTitleView addSubview:kMarkView];
+    _kMarkRect = kMarkView.frame;
+    UILabel *kTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, length+20, 27)];
+    kTitleLabel.backgroundColor = YTHColor(169, 214, 255);
+    kTitleLabel.layer.cornerRadius = 4;
+    kTitleLabel.layer.masksToBounds = YES;
+    kTitleLabel.textAlignment = NSTextAlignmentCenter;
+    kTitleLabel.font = [UIFont systemFontOfSize:12];
+    kTitleLabel.textColor = [UIColor whiteColor];
+    kTitleLabel.text = title;
+    [kMarkView addSubview:kTitleLabel];
+    UIButton *kDeleteButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    kDeleteButton.frame = CGRectMake(CGRectGetMaxX(kMarkView.frame)-10, kMarkView.frame.origin.y-10, 20, 20);
+    //    [kDeleteButton setTitle:@"X" forState:UIControlStateNormal];
+    [kDeleteButton setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+    //    [kDeleteButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    //    [kDeleteButton addTarget:self action:@selector(btnDeleteClick:)];
+    [kDeleteButton addTarget:self action:@selector(btnDeleteClick:) forControlEvents:UIControlEventTouchUpInside];
+    [_kTitleView addSubview:kDeleteButton];
+    if (add) {
+        [_kTitleArrays addObject:title];
+    }
+    kDeleteButton.tag = [_kTitleArrays indexOfObject:title] + 999;
+    _kTitleView.contentSize = CGSizeMake(YTHScreenWidth, CGRectGetMaxY(kMarkView.frame)+10);
+    // self.viewLabel.height =kMarkView.height;
+    float h;
+    NSLog(@"frame标签%f",kMarkView.frame.origin.y);
+
+    
+}
+
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end

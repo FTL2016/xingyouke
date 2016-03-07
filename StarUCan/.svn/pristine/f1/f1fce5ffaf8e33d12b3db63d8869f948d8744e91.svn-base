@@ -1,0 +1,31 @@
+//
+//  AttentionTableViewCell.h
+//  Starucan
+//
+//  Created by vgool on 16/1/25.
+//  Copyright © 2016年 vgool. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "ShowDetailModel.h"
+@interface AttentionTableViewCell : UITableViewCell
+{
+    UIScrollView *_kTitleView;
+    CGRect _kMarkRect;
+    NSMutableArray *_kTitleArrays;
+}
+@property (nonatomic, strong)ShowDetailModel *showModel;
+@property(nonatomic,strong)UIImageView *headImgV;//头像
+@property(nonatomic,strong)UILabel *nameLabel;//姓名
+@property(nonatomic,strong)UIImageView *sexImV;//性别
+@property(nonatomic,strong)UILabel *uniserLabel;//学校
+@property(nonatomic,strong)UIImageView *bigImage;
+@property(nonatomic,strong)UIView *viewBgDesc;//文字详情view
+@property(nonatomic,strong)UILabel *labelDesc;
+@property (strong, nonatomic) NSMutableArray *photoNameList;
+@property(nonatomic,strong)UILabel *commentLabel;
+@property(nonatomic,strong) UILabel *praiseLabel;
+
+@property(nonatomic,strong)UILabel *comlabel;//评论
+@property(nonatomic,strong) UILabel *commentText;//评论2
+@end

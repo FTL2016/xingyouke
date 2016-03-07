@@ -1,0 +1,17 @@
+//
+//  ShowDetailViewController.h
+//  Starucan
+//
+//  Created by vgool on 16/1/22.
+//  Copyright © 2016年 vgool. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface ShowDetailViewController : UIViewController
+@property(nonatomic,copy)NSString *uuid;
+@property(nonatomic,copy)NSString *userUuid;
+ @property(nonatomic,copy)NSString *pinglun;
+@property(nonatomic,copy)NSString *attenuuid;
+@property(nonatomic,copy)NSString *praiseuuid;
+@end

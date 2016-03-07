@@ -1,0 +1,202 @@
+//
+//  ShowViewController.m
+//  星优客
+//
+//  Created by vgool on 15/12/30.
+//  Copyright © 2015年 vgool. All rights reserved.
+//
+
+#import "ShowViewController.h"
+#import "CustomBarItem.h"
+#import "UINavigationItem+CustomItem.h"
+#import "ShowPhotoViewController.h"
+#import "ShowTitleViewController.h"
+#import "LoginFirstViewController.h"
+#import "AppDelegate.h"
+#import "LoginFirstViewController.h"
+#import "DoImagePickerController.h"
+#import "AssetHelper.h"
+#import "TopicViewController.h"
+@interface ShowViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,DoImagePickerControllerDelegate>
+{
+    AppDelegate *myDelegate;
+}
+@property (strong, nonatomic) NSMutableArray *photoNameList;
+
+@end
+
+@implementation ShowViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    if (!myDelegate) {
+        myDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    }
+    self.navigationItem.title = @"show";
+    self.view.backgroundColor = [UIColor whiteColor];
+    //    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, YTHScreenWidth-80, 30)];
+    //    view.backgroundColor = [UIColor orangeColor];
+    //    CustomBarItem *centerItem = [self.navigationItem setItemWithCustomView:view itemType:center];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(100, 64, 100, 100);
+    [button setTitle:@"show图片" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    button.tag = 1;
+    [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+    
+    UIButton *buttontitle = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttontitle.frame = CGRectMake(100, 164, 100, 100);
+    [buttontitle setTitle:@"发起话题" forState:UIControlStateNormal];
+    [buttontitle setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    buttontitle.tag=2;
+    [buttontitle addTarget:self action:@selector(buttonTitle:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:buttontitle];
+}
+-(void)buttonAction:(UIButton *)btn
+{
+    
+    
+    //    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil   delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    //    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+    //        [sheet addButtonWithTitle:@"本地上传"];
+    //        [sheet addButtonWithTitle:@"拍照上传"];
+    //        [sheet addButtonWithTitle:@"取消"];
+    //        sheet.cancelButtonIndex = sheet.numberOfButtons-1;
+    //    }else {
+    //        [sheet addButtonWithTitle:@"本地上传"];
+    //        [sheet addButtonWithTitle:@"取消"];
+    //        sheet.cancelButtonIndex = sheet.numberOfButtons-1;
+    //    }
+    //    [sheet showInView:self.view];
+    
+    
+    
+//    ShowPhotoViewController *showVC = [[ShowPhotoViewController alloc]init];
+//    [self.navigationController pushViewController:showVC animated:YES];
+    
+    
+    
+    if (!IsNilOrNull([myDelegate.userInfo objectForKey:@"uuid"])) {
+        ShowPhotoViewController *showVC = [[ShowPhotoViewController alloc]init];
+        [self.navigationController pushViewController:showVC animated:YES];
+        return;
+        
+    }else{
+        LoginFirstViewController *loginVC = [[LoginFirstViewController alloc]init];
+        [self.navigationController pushViewController:loginVC animated:YES];
+    }
+    
+}
+-(void)buttonTitle:(UIButton *)btn
+{
+    if (!IsNilOrNull([myDelegate.userInfo objectForKey:@"uuid"])) {
+        TopicViewController *topicVC = [[TopicViewController alloc]init];
+        [self.navigationController pushViewController:topicVC animated:YES];
+        return;
+        
+    }else{
+        LoginFirstViewController *loginVC = [[LoginFirstViewController alloc]init];
+        [self.navigationController pushViewController:loginVC animated:YES];
+    }
+    
+}
+
+#pragma mark-UIActionSheet
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        switch (buttonIndex) {
+            case 2:{}
+                return;
+            case 1:
+            {
+                UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init] ;
+                imagePickerController.delegate = self;
+                imagePickerController.allowsEditing = NO;
+                imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+                [self presentViewController:imagePickerController animated:YES completion:^{}];
+                //					[imagePickerController release];
+            }
+                break;
+            case 0:
+                [self showImagePicker];
+                break;
+        }
+        
+    }
+}
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.photoNameList insertObject:image atIndex:0];
+    //    [self.photoNameList addObject:image];
+    //self.photoImg.image = image;
+    //[self reloadPhotos];
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:^{}];
+}
+
+#pragma mark - DoImagePickerControllerDelegate
+- (void)didCancelDoImagePickerController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)didSelectPhotosFromDoImagePickerController:(DoImagePickerController *)picker result:(NSArray *)selectedImages
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    if (picker.nResultType == DO_PICKER_RESULT_UIIMAGE)
+    {
+        for (int i = 0; i < MIN(10, selectedImages.count); i++)
+        {
+            
+            [self.photoNameList insertObject:selectedImages[i] atIndex:self.photoNameList.count-1];
+            //            [self.photoNameList addObject:selectedImages[i]];
+        }
+    }
+    else if (picker.nResultType == DO_PICKER_RESULT_ASSET)
+    {
+        for (int i = 0; i < MIN(10, selectedImages.count); i++)
+        {
+            [self.photoNameList insertObject:[ASSETHELPER getImageFromAsset:selectedImages[i] type:ASSET_PHOTO_SCREEN_SIZE] atIndex:self.photoNameList.count-1];
+            //            [self.photoNameList addObject:[ASSETHELPER getImageFromAsset:selectedImages[i] type:ASSET_PHOTO_SCREEN_SIZE]];
+        }
+        
+        [ASSETHELPER clearData];
+    }
+    if (self.photoNameList.count > 0) {
+        //        [self reloadPhotos];
+        // [_kPhotoCollectionView reloadData];
+    }
+}
+
+- (void)showImagePicker {
+    DoImagePickerController *cont = [[DoImagePickerController alloc] initWithNibName:@"DoImagePickerController" bundle:nil];
+    cont.delegate = self;
+    cont.nResultType = DO_PICKER_RESULT_UIIMAGE;
+    cont.nMaxCount = 9 - (self.photoNameList.count-1);//最大张数
+    cont.nColumnCount = 4;//选择器行数
+    [self presentViewController:cont animated:YES completion:nil];
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
+
+@end
