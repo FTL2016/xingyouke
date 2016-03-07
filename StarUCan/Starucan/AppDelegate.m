@@ -27,6 +27,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch
     
+    NSLog(@"hello");
+    
     self.uid = @"";
     self.nickname = @"";
     self.gender = @"";

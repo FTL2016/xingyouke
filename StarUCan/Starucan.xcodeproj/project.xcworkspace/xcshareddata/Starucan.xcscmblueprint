@@ -6,10 +6,12 @@
     }
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D601F420B398E4DC7DA23B18C5CD3FDFC60C751B" : 0,
     "762e35de-e8c2-4406-81ed-9b30789e92be++5961" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C34B7406-19EB-4BF9-9FEF-F74271582E6B",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D601F420B398E4DC7DA23B18C5CD3FDFC60C751B" : "",
     "762e35de-e8c2-4406-81ed-9b30789e92be++5961" : "StarUCan\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Starucan",
@@ -20,6 +22,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/211.157.146.145",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "762e35de-e8c2-4406-81ed-9b30789e92be++5961"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:FTL2016\/xingyouke.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D601F420B398E4DC7DA23B18C5CD3FDFC60C751B"
     }
   ]
 }
